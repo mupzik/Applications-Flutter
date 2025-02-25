@@ -43,7 +43,7 @@ samples, guidance on mobile development, and a full API reference.
 
 3. Дать название проекту (для этого появится окно в VS Code).
 
-4. В меню внизу выбрать окно Terminal, ввести команду flutter create my_app.
+4. В меню внизу выбрать окно Terminal, ввести команду flutter create my_app. 
 Браво, вы умничка!
 
 ## Запуск проекта
@@ -58,5 +58,5 @@ samples, guidance on mobile development, and a full API reference.
 
 3. Подождать запуска.
 
-4. Проверить, что все работает.
+4. Проверить, что все работает. 
 Браво, вы умничка!
