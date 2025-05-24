@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '/screens/cubit/main_screen_cubit.dart';
 import '/screens/cubit/main_screen_state.dart';
+import '/screens/history_cubit/his_cub.dart';
+import '/screens/history_screen.dart';
 
 // Класс экрана для отображения калькулятора
 class SumScreen extends StatelessWidget {
@@ -16,6 +18,20 @@ class SumScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Калькулятор кинетической энергии'), // Заголовок приложения
+      leading: IconButton(
+          icon: const Icon(Icons.history), // Иконка для перехода к истории
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => BlocProvider<HistoryCubit>(
+                  create: (context) => HistoryCubit(),
+                  child: const HistoryScreen(),
+                ),
+              ),
+            );
+          },
+        ),
       ),
       body: BlocBuilder<SumCubit, SumState>(
         builder: (context, state) {

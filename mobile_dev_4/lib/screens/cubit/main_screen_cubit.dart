@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '/screens/cubit/main_screen_state.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // Класс Cubit для управления состоянием приложения
 class SumCubit extends Cubit<SumState> {
@@ -33,8 +34,11 @@ class SumCubit extends Cubit<SumState> {
     if (consentChecked) {
       final result = 0.5 * a * b * b;
       emit(SumUpdateState(a: a, b: b, result: result, consentChecked: consentChecked));
+      _saveCalculation(a, b, result); // Сохранение результата после вычисления
+
     }
   }
+
 
   // Метод для сброса всех данных к начальному состоянию
   void reset() {
@@ -42,5 +46,16 @@ class SumCubit extends Cubit<SumState> {
     b = 0.0;
     consentChecked = false;
     emit(SumUpdateState(a: a, b: b, result: 0.0, consentChecked: consentChecked));
+  }
+
+  // Приватный метод для сохранения вычисления в SharedPreferences
+  Future<void> _saveCalculation(double a, double b, double result) async {
+    final prefs = await SharedPreferences.getInstance();
+    // Получаем текущий список вычислений или создаем новый
+    List<String> calculations = prefs.getStringList('calculations') ?? [];
+    // Добавляем новое вычисление в формате "a,b,result"
+    calculations.add('$a,$b,$result');
+    // Сохраняем обновленный список
+    await prefs.setStringList('calculations', calculations);
   }
 }
